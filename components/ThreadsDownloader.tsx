@@ -64,7 +64,7 @@ export default function ThreadsDownloader({
                     for (const q of prev) {
                         if (q.id === item.id) {
                             if (response.ok && data.media && Array.isArray(data.media)) {
-                                data.media.forEach((mediaItem: any, index: number) => {
+                                data.media.forEach((mediaItem: { type: string; url: string; filename: string }, index: number) => {
                                     newQueue.push({
                                         ...q,
                                         id: `${q.id}_${index}`,
@@ -336,7 +336,7 @@ export default function ThreadsDownloader({
                             <div>
                                 <h3 className="font-semibold text-lg text-foreground">100% Secure & Private</h3>
                                 <p className="text-muted-foreground mt-1">
-                                    We do not store your data. Files are downloaded directly from Meta's CDN to your device.
+                                    We do not store your data. Files are downloaded directly from Meta&apos;s CDN to your device.
                                 </p>
                             </div>
                         </div>
@@ -375,7 +375,7 @@ export default function ThreadsDownloader({
                                 <div className="border border-input rounded-lg p-4 bg-background">
                                     <h3 className="font-semibold text-foreground">How to save Threads videos to iPhone Camera Roll?</h3>
                                     <p className="text-sm text-muted-foreground mt-2">
-                                        After clicking "Download", the video will open. Tap layout "Share" icon and select "Save Video" to add it to your Photos app.
+                                        After clicking &quot;Download&quot;, the video will open. Tap layout &quot;Share&quot; icon and select &quot;Save Video&quot; to add it to your Photos app.
                                     </p>
                                 </div>
                             </div>
@@ -396,18 +396,18 @@ export default function ThreadsDownloader({
                         >
                             Privacy Policy
                         </Link>
-                        <a
+                        <Link
                             className="text-[11px] font-semibold text-muted-foreground hover:text-foreground transition-colors uppercase"
-                            href="#"
+                            href="/"
                         >
                             Terms of Use
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                             className="text-[11px] font-semibold text-muted-foreground hover:text-foreground transition-colors uppercase"
-                            href="#"
+                            href="/"
                         >
                             Contact
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </footer>

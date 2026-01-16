@@ -5,14 +5,14 @@ export default function PrivacyPolicy() {
             <p className="mb-4 text-sm text-gray-500">Effective Date: January 17, 2026</p>
 
             <p className="mb-6">
-                At <strong>BulkThreadsDownloader.com</strong> ("we," "our," or "the Service"), your privacy is our priority.
-                We have built this tool with a strict <strong>"No-Log"</strong> architecture. This Privacy Policy outlines
+                At <strong>BulkThreadsDownloader.com</strong> (&quot;we,&quot; &quot;our,&quot; or &quot;the Service&quot;), your privacy is our priority.
+                We have built this tool with a strict <strong>&quot;No-Log&quot;</strong> architecture. This Privacy Policy outlines
                 what information we collect, how we use it, and your rights regarding your data.
             </p>
 
             <h2 className="text-xl font-semibold mt-8 mb-4">1. Information We Do Not Collect (Zero-Log Policy)</h2>
             <ul className="list-disc pl-5 space-y-2 mb-6">
-                <li><strong>No File Storage:</strong> We do not download, host, or store any videos, images, or media files on our servers. All media is downloaded directly from Meta's Content Delivery Network (CDN) to your personal device.</li>
+                <li><strong>No File Storage:</strong> We do not download, host, or store any videos, images, or media files on our servers. All media is downloaded directly from Meta&apos;s Content Delivery Network (CDN) to your personal device.</li>
                 <li><strong>No URL Tracking:</strong> We do not log or save the URLs you input into our search bar.</li>
                 <li><strong>No Personal Identity Information (PII):</strong> We do not require account creation, and we do not collect your name, email address, or phone number to use the core service.</li>
             </ul>
