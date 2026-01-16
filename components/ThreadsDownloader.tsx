@@ -151,9 +151,11 @@ export default function ThreadsDownloader({
             <header className="w-full border-b border-input bg-background/95 backdrop-blur shrink-0">
                 <div className="px-6 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-foreground">
-                            download_for_offline
-                        </span>
+                        <img
+                            src="/logo.png"
+                            alt="Logo"
+                            className="w-8 h-8 object-contain"
+                        />
                         <span className="font-bold text-lg tracking-tight">
                             BulkThreadsDownloader
                         </span>
