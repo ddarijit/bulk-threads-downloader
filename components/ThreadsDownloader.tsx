@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 interface QueueItem {
     id: string;
@@ -389,12 +390,12 @@ export default function ThreadsDownloader({
                         © 2024 BulkThreadsDownloader.com
                     </div>
                     <div className="flex items-center gap-6">
-                        <a
+                        <Link
                             className="text-[11px] font-semibold text-muted-foreground hover:text-foreground transition-colors uppercase"
-                            href="#"
+                            href="/privacy-policy"
                         >
                             Privacy Policy
-                        </a>
+                        </Link>
                         <a
                             className="text-[11px] font-semibold text-muted-foreground hover:text-foreground transition-colors uppercase"
                             href="#"
