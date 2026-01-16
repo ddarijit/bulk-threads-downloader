@@ -1,0 +1,73 @@
+from flask import Flask, request, jsonify
+import requests
+from bs4 import BeautifulSoup
+import re
+
+app = Flask(__name__)
+
+# Headers to mimic a real browser and avoid Meta blocking
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Sec-Fetch-Mode": "navigate",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Sec-Fetch-Site": "none",
+    "Upgrade-Insecure-Requests": "1"
+}
+
+@app.route('/api/download', methods=['GET'])
+def download():
+    url = request.args.get('url')
+    
+    if not url:
+        return jsonify({"error": "Missing URL parameter"}), 400
+        
+    # Validation: Ensure it's a Threads URL
+    if not re.match(r'^https?://(www\.)?threads\.(net|com)/.*', url):
+        return jsonify({"error": "Invalid Threads URL"}), 400
+
+    try:
+        # Fetch the page content
+        response = requests.get(url, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Extract og:video or og:image
+        video_url = soup.find("meta", property="og:video")
+        video_secure_url = soup.find("meta", property="og:video:secure_url")
+        image_url = soup.find("meta", property="og:image")
+        
+        result = {}
+        
+        final_video_url = None
+        if video_url and video_url.get("content"):
+            final_video_url = video_url["content"]
+        elif video_secure_url and video_secure_url.get("content"):
+            final_video_url = video_secure_url["content"]
+            
+        if final_video_url:
+            result["type"] = "video"
+            result["url"] = final_video_url
+            result["filename"] = f"threads_video_{re.sub(r'[^a-zA-Z0-9]', '', url.split('/')[-1]) or 'download'}.mp4"
+        elif image_url and image_url.get("content"):
+            content = image_url["content"]
+            # Filter out the default Threads meta image (logo)
+            if "static.cdninstagram.com" in content and "rsrc.php" in content:
+                 return jsonify({"error": "No specific media found (likely a profile or private post)."}), 404
+                 
+            result["type"] = "image"
+            result["url"] = content
+            result["filename"] = f"threads_image_{re.sub(r'[^a-zA-Z0-9]', '', url.split('/')[-1]) or 'download'}.jpg"
+        else:
+            return jsonify({"error": "No media found. The process might be private or blocked."}), 404
+            
+        return jsonify(result)
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": f"Failed to fetch Threads page: {str(e)}"}), 500
+    except Exception as e:
+        return jsonify({"error": f"Internal server error: {str(e)}"}), 500
+
+if __name__ == '__main__':
+    app.run(port=5328)

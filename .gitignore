@@ -38,4 +38,16 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# project specific
+dumped_json.json
+server*.log
+*.mp4
+*.jpg
