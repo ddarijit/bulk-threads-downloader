@@ -93,11 +93,6 @@ def download():
                 try:
                     data = json.loads(script.text)
                     
-                    # DEBUG: Dump the JSON to see structure
-                    with open("dumped_json.json", "w") as f:
-                        json.dump(data, f, indent=2)
-                    print("DEBUG: Dumped JSON to dumped_json.json")
-                    
                     found_media = []
 
                     # Helper to extract best quality from a list of versions
